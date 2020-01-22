@@ -1,0 +1,36 @@
+spring:
+  application:
+    name: stream
+  cloud:
+    stream:
+      kafka:
+        binder:
+          brokers: localhost:9092
+      bindings:
+        onEmailOutput:
+          destination: ON_EMAIL
+          group: ${spring.application.name}-input
+        onResourceUrlOutput:
+          destination: ON_RESOURCE
+          group: ${spring.application.name}-output
+        onResourceUrlInput:
+          destination: ON_RESOURCE
+          group: ${spring.application.name}-input
+  jpa:
+    hibernate:
+      ddl-auto: create-drop
+    properties:
+      hibernate:
+        jdbc:
+          lob:
+            non_contextual_creation: true
+  datasource:
+    url: jdbc:postgresql://localhost:5432/postgres
+    username: postgres
+    password: postgres
+
+app:
+  windowSize: 300000
+  whiteList:
+    - comeon.com
+    - cherry.se
